@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We as members, contributors, and leaders pledge to make participation in our
+We as members and contributors pledge to make participation in our
 community a harassment-free experience for everyone, regardless of age, body
 size, visible or invisible disability, ethnicity, sex characteristics, gender
 identity and expression, level of experience, education, socio-economic status,
@@ -30,23 +30,12 @@ Examples of unacceptable behavior include:
 * The use of sexualized language or imagery, and sexual attention or advances of
   any kind
 * Trolling, insulting or derogatory comments, and personal or political attacks
+* Distracted use of technology during team meetings such as texting, using social media or working on assignments.
 * Public or private harassment
 * Publishing others' private information, such as a physical or email address,
   without their explicit permission
 * Other conduct which could reasonably be considered inappropriate in a
   professional setting
-
-## Enforcement Responsibilities
-
-Community leaders are responsible for clarifying and enforcing our standards of
-acceptable behavior and will take appropriate and fair corrective action in
-response to any behavior that they deem inappropriate, threatening, offensive,
-or harmful.
-
-Community leaders have the right and responsibility to remove, edit, or reject
-comments, commits, code, wiki edits, issues, and other contributions that are
-not aligned to this Code of Conduct, and will communicate reasons for moderation
-decisions when appropriate.
 
 ## Scope
 
@@ -56,61 +45,52 @@ Examples of representing our community include using an official email address,
 posting via an official social media account, or acting as an appointed
 representative at an online or offline event.
 
-## Enforcement
+## Roles/Responsibilities
+SCRUM master (Isaac)
+  - Organizing and leading sprint meetings including: 
+	Sprint Planning - to define sprint goals
+Daily stand-ups - to track progress and address challenges
+Sprint Reviews - to demonstrate the completed work
+Sprint Retrospectives - to reflect on the process and improve for future sprints
+  - Record attendance of group members at all classes and meetings.
+  - Take notes at meetings for group members who aren’t present.
+  - Identification and resolution of roadblocks that would impede the team’s progress.
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the community leaders responsible for enforcement at
-[INSERT CONTACT METHOD].
-All complaints will be reviewed and investigated promptly and fairly.
+Stand in SCRUM master (Jaed)
+  - Acts as the SCRUM master if the SCRUM master is not present.
 
-All community leaders are obligated to respect the privacy and security of the
-reporter of any incident.
+## Decisions
+Decisions regarding the project will be made through a majority vote after discussion among group members. If an agreement can not be reached, the SCRUM master will make the final decision. Any decision that greatly impacts the project will be documented business/BUSINESSPLAN.md.
 
-## Enforcement Guidelines
+## Attendance
+Attendance for classes and group meetings will be recorded by the SCRUM master.  If the SCRUM master is not present, the Stand in SCRUM master will take note of attendance and inform the SCRUM master.  The attendance record will be available to all group members as read only to assist with determining group participation at the end of the project.
 
-Community leaders will follow these Community Impact Guidelines in determining
-the consequences for any action they deem in violation of this Code of Conduct:
+A member who is late or going to miss a class or meeting will send a text in the group chat as soon as possible.
 
-### 1. Correction
+Members that miss a meeting will check in with the SCRUM master or Stand in SCRUM master if the SCRUM master was not present to get caught up on what they missed.
 
-**Community Impact**: Use of inappropriate language or other behavior deemed
-unprofessional or unwelcome in the community.
+## Assignments
+During the Sprint Planning meeting, members choose a task or tasks to work on during the week from the tasks that need to be completed that week.  If any members don't have a preference of tasks, or don't choose tasks, the SCRUM master will request them to do tasks that suit their abilities.  During or after tasks being assigned, members should discuss any questions or concerns about the tasks so that tasks can be swapped or resigned if needed.  It is the responsibility of each member to seek help from the group or SCRUM master if they are having difficulties completing their tasks during the scrum.
 
-**Consequence**: A private, written warning from community leaders, providing
-clarity around the nature of the violation and an explanation of why the
-behavior was inappropriate. A public apology may be requested.
+## Participation
+Each group member is expected to utilize their skills to contribute to the project in a way that feels fair to the whole group.  This doesn’t mean that the programming tasks need to be split perfectly as there will be other tasks that contribute.  The SCRUM master’s responsibilities are considered separate, and will not be included when evaluating an individual’s contributions.
 
-### 2. Warning
+## Meeting Times and Locations/Mediums
+Dedicated work times - These times are meant for all group members to work on the project at the same time or at a minimum be available to assist other members with issues or collaboration so that parts of the project that require collaboration between members can be accomplished at consistent times.  
+Sundays from 10 am to noon.
 
-**Community Impact**: A violation through a single incident or series of
-actions.
+## Agenda and Minutes/Notes
+The meeting agenda and notes will be taken by the SCRUM master.  The agenda will be made available to all group members at least 24 hours before a meeting.  The meeting notes will be posted on Discord after each meeting.
 
-**Consequence**: A warning with consequences for continued behavior. No
-interaction with the people involved, including unsolicited interaction with
-those enforcing the Code of Conduct, for a specified period of time. This
-includes avoiding interactions in community spaces as well as external channels
-like social media. Violating these terms may lead to a temporary or permanent
-ban.
+## Promptness
+Expectations for this team is for work to be handed in on time within the proper sprint increment, and maintaining an equal amount of work distribution.  If a member is struggling or unable to complete a task, the member needs to inform the SCRUM master as soon as possible so that the task can be resigned or assisted with and completed during the Sprint if possible.
 
-### 3. Temporary Ban
+## Conversational Courtesies
+ The team will promote and reinforce active listening by maintaining the conversation about the project and providing any sort of constructive feedback or criticism. These sort of conversational courtesies are mostly exercised throughout SCRUM meetings. Any sort of dialogue in the conversation is supposed to remain respectful.
 
-**Community Impact**: A serious violation of community standards, including
-sustained inappropriate behavior.
+## Enforcement/Feedback
+ Use of inappropriate language or other behavior deemed unprofessional are unwelcome in the team. As a team we are obligated to respect the privacy and security of the reporter of any incident. Any sort of feedback is welcome as long as it contributes to the project. Feedback or enforcement can be reported either in the project Board in Github, during team discussions, and/or directly to professor Mazzone. Through following enforcement and feedback policies we are allowed to promote a healthy working environment and open to constructive criticism.
 
-**Consequence**: A temporary ban from any sort of interaction or public
-communication with the community for a specified period of time. No public or
-private interaction with the people involved, including unsolicited interaction
-with those enforcing the Code of Conduct, is allowed during this period.
-Violating these terms may lead to a permanent ban.
-
-### 4. Permanent Ban
-
-**Community Impact**: Demonstrating a pattern of violation of community
-standards, including sustained inappropriate behavior, harassment of an
-individual, or aggression toward or disparagement of classes of individuals.
-
-**Consequence**: A permanent ban from any sort of public interaction within the
-community.
 
 ## Attribution
 
