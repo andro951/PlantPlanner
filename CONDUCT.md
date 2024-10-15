@@ -134,3 +134,5 @@ X_________________        Date:__/__/__
 X_________________        Date:__/__/__
 
 X_________________        Date:__/__/__
+
+![Isaac's Signature](src/signature_Isaac.jpg)
