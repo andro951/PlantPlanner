@@ -126,3 +126,5 @@ For answers to common questions about this code of conduct, see the FAQ at
 ## Signatures
 
 ![Isaac's Signature](src/signature_Isaac.jpg)
+
+[Lucas's Signature](src/lucas_signature.png)
