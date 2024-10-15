@@ -120,3 +120,17 @@ For answers to common questions about this code of conduct, see the FAQ at
 [Mozilla CoC]: https://github.com/mozilla/diversity
 [FAQ]: https://www.contributor-covenant.org/faq
 [translations]: https://www.contributor-covenant.org/translations
+
+
+
+## Signatures
+
+X___Jaed Flores___        Date:10/15/2024
+
+X_________________	  Date:__/__/__
+
+X_________________        Date:__/__/__
+
+X_________________        Date:__/__/__
+
+X_________________        Date:__/__/__
