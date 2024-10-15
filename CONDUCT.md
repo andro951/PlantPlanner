@@ -125,14 +125,4 @@ For answers to common questions about this code of conduct, see the FAQ at
 
 ## Signatures
 
-X___Jaed Flores___        Date:10/15/2024
-
-X_________________	  Date:__/__/__
-
-X_________________        Date:__/__/__
-
-X_________________        Date:__/__/__
-
-X_________________        Date:__/__/__
-
 ![Isaac's Signature](src/signature_Isaac.jpg)
