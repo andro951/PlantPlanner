@@ -49,9 +49,9 @@ representative at an online or offline event.
 SCRUM master (Isaac)
   - Organizing and leading sprint meetings including: 
 	Sprint Planning - to define sprint goals
-Daily stand-ups - to track progress and address challenges
-Sprint Reviews - to demonstrate the completed work
-Sprint Retrospectives - to reflect on the process and improve for future sprints
+	Daily stand-ups - to track progress and address challenges
+	Sprint Reviews - to demonstrate the completed work
+	Sprint Retrospectives - to reflect on the process and improve for future sprints
   - Record attendance of group members at all classes and meetings.
   - Take notes at meetings for group members who aren’t present.
   - Identification and resolution of roadblocks that would impede the team’s progress.
@@ -78,6 +78,16 @@ Each group member is expected to utilize their skills to contribute to the proje
 ## Meeting Times and Locations/Mediums
 Dedicated work times - These times are meant for all group members to work on the project at the same time or at a minimum be available to assist other members with issues or collaboration so that parts of the project that require collaboration between members can be accomplished at consistent times.  
 Sundays from 10 am to noon.
+
+Sprints will be once a week, starting Tuesday and ending the next Monday. (After previous week Review and Retrospective.)
+
+Sprint Planning - 15-30 minutes - Monday, during class or after class.
+
+Daily stand-ups - 10 minutes - Tuesday, Thursday at the start of class.  (Async on Discord if not enough time in class.)
+
+Sprint Reviews - 15-30 min - Monday, during class or after class.
+
+Sprint Retrospectives - 10 min - Monday, during class or after class after the Sprint Review.
 
 ## Agenda and Minutes/Notes
 The meeting agenda and notes will be taken by the SCRUM master.  The agenda will be made available to all group members at least 24 hours before a meeting.  The meeting notes will be posted on Discord after each meeting.
