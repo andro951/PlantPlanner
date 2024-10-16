@@ -127,4 +127,4 @@ For answers to common questions about this code of conduct, see the FAQ at
 
 ![Isaac's Signature](src/signature_Isaac.jpg)
 ![Jaed's Signature](src/928B90A3-AC49-4A63-85FF-6639E0E28A46_4_5005_c.jpeg)
-![Anjola's Signature](src/Screenshot 2024-10-15 172450.png)
+![Anjola's Signature]("src/Screenshot 2024-10-15 172450.png")
