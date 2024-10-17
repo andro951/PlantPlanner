@@ -126,6 +126,7 @@ For answers to common questions about this code of conduct, see the FAQ at
 ## Signatures
 
 ![Isaac's Signature](src/signature_Isaac.jpg)
+![Keanna's Signature](src/signature_keanna.jpg)
 ![Lucas's Signature](src/lucas_signature.png)
 ![Jaed's Signature](src/928B90A3-AC49-4A63-85FF-6639E0E28A46_4_5005_c.jpeg)
 ![Anjola's Signature](src/Screenshot%202024-10-15%20172450.png)
