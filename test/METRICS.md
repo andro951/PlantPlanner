@@ -3,7 +3,7 @@
 
 ### Metric 1: Net Promoter Score (NPS)
 
-- ** How we collect NPS data:**
+- **How we collect NPS data:**
   - At the end of the " Golden Path", users are presented with a feedback question: *"On a scale of 0 to 10, how likely are you to recommend this app to a friend or colleague?"*.
   - Users submit their responses, which are then recorded in our backend Firebase Firestore database.
   -  The data is stored with the user's ID and timestamp, allowing us to track and analyze trends overtime.
