@@ -12,3 +12,9 @@
      - **Passives** (7-8)
      - **Detractors** (0-6)
   - We determine the overall Net Promoter Score basefd off a formula, essentially we find the difference between Promoters and Detractors and divide the difference by the Total number of respondents, which then we find the exact percent of our NPS.
+
+
+### Metric 5: Task Success
+
+- **How we collect NPS data:** 
+  - Track the average time spent on each step of adding a plant and setting notifications. This data will be collected via Firebase Analytics by logging custom events when users start and complete each task step.
