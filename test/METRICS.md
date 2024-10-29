@@ -14,6 +14,17 @@
   - We determine the overall Net Promoter Score basefd off a formula, essentially we find the difference between Promoters and Detractors and divide the difference by the Total number of respondents, which then we find the exact percent of our NPS.
 
 
+### Metric 3: Daily Active Users
+
+- **How we collect DAU data:**
+  - Record the amount of times users login, open the app, or complete a task.
+     - Track each user's unique login ID through Firebase and the timestamp.
+  - Record the amount of users who used the app within 24 hours.
+  - Record specific user actions.
+     - Based on activity, like opening the app, adding a plant, or accessing any feature.
+  -Use Firebase Analytics' automatic event tracking to log the requested data. 
+
+
 ### Metric 5: Task Success
 
 - **How we collect NPS data:** 
