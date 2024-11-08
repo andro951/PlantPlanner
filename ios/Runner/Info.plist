@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow PlantPlanner to access your location. We use this to view your current weather.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow PlantPlanner to access your location. We use this to view your current weather.</string>
 	<key>CFBundleDisplayName</key>
 	<string>PlantPlanner</string>
 	<key>CFBundleExecutable</key>
