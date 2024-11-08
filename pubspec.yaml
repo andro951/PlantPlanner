@@ -21,6 +21,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -28,6 +29,7 @@ dependencies:
   auto_size_text: 3.0.0
   cached_network_image: 3.3.1
   collection: 1.18.0
+  firebase_messaging: ^15.1.0 # https://pub.dev/packages/firebase_messaging Notifications 
   flutter_animate: 4.5.0
   flutter_cache_manager: 3.3.1
   font_awesome_flutter: 10.7.0
