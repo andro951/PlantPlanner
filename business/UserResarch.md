@@ -1,3 +1,0 @@
-## 1. Observation:
-Throughout the survey user request data sheet, an observation according to the users information, most of the users have either beginner/ intermediate  experience when it comes to taking care of a plant.  Throughout the survey there were a total of 10 beginners, 7 novice, 6 intermediates, and only one expert. According to these statistics the majority of our users are either new to plant caring, or have very minimal experience with plant caring. Furthermore, some team action we can take in order to enhance the experience for our users, is  to provide detailed information using API’s about specific plants and easy to follow caring instructions.
-
