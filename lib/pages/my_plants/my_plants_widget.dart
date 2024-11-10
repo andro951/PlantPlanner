@@ -1,3 +1,6 @@
+import 'package:app_settings/app_settings.dart';
+import 'package:location/location.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -20,9 +23,13 @@ class _MyPlantsWidgetState extends State<MyPlantsWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  double lattitude = 0.0000;
+  double longitude = 0.0000;
+
   @override
   void initState() {
     super.initState();
+    getUserCurrentLocation();
     _model = createModel(context, () => MyPlantsModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'MyPlants'});
@@ -281,6 +288,82 @@ class _MyPlantsWidgetState extends State<MyPlantsWidget> {
           ),
         ),
       ),
+    );
+  }
+
+
+getUserCurrentLocation() async {
+  Location location = Location();
+
+  bool serviceEnabled;
+  PermissionStatus permissionGranted;
+
+  serviceEnabled = await location.serviceEnabled();
+  if (!serviceEnabled) {
+    serviceEnabled = await location.requestService();
+    if (!serviceEnabled) {
+      // Handle the case where user did not enable location service
+      normalConfirmationDialog(
+        "Location service is disabled. App wants to access your location",
+        "Please enable your location",
+        "Enable Location",
+      );
+      return;
+    }
+  }
+
+  permissionGranted = await location.hasPermission();
+  if (permissionGranted == PermissionStatus.denied) {
+    permissionGranted = await location.requestPermission();
+    if (permissionGranted != PermissionStatus.granted) {
+      // Handle the case where user denied the permission
+      normalConfirmationDialog(
+        "Denied the location permission. Please go to settings and give access",
+        "Location permission denied",
+        "Open settings"
+      );
+      print("Location_Permission_Denied");
+      return;
+    }
+  }
+  location.onLocationChanged.listen((LocationData currentLocation) async {
+    // Handle location updates here
+    print("Location: ${currentLocation.latitude}, ${currentLocation.longitude}");
+    setState(() {
+      lattitude = currentLocation.latitude!;
+      longitude = currentLocation.longitude!;
+    });
+
+  });
+}
+
+  normalConfirmationDialog(String confirmationText, String title, String buttonText) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 20.0),
+              Text(title, style: const TextStyle(fontSize: 20.0,),),
+              const SizedBox(height: 20.0),
+              Text(confirmationText,),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                onPressed: (){
+                  if(buttonText == "Open settings"){
+                    AppSettings.openAppSettings();
+                  } else {
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text(buttonText),
+                )
+            ],
+          )
+        );
+      },
     );
   }
 }
