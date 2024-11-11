@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -659,8 +661,16 @@ class _AccountCreationPageWidgetState extends State<AccountCreationPageWidget> {
                         ),
                       ),
                       FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'ACCOUNT_CREATION_CREATE_ACCOUNT_BTN_ON_T');
+                          logFirebaseEvent('Button_backend_call');
+
+                          await currentUserReference!
+                              .update(createUsersRecordData());
+                          logFirebaseEvent('Button_navigate_to');
+
+                          context.goNamed('MyPlants');
                         },
                         text: 'Create Account',
                         options: FFButtonOptions(

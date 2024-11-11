@@ -94,14 +94,33 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const AccountCreationPageWidget(),
         ),
         FFRoute(
-          name: 'PlantSearch',
-          path: '/plantSearch',
-          builder: (context, params) => const PlantSearchWidget(),
-        ),
-        FFRoute(
           name: 'MyPlants',
           path: '/myPlants',
           builder: (context, params) => const MyPlantsWidget(),
+        ),
+        FFRoute(
+          name: 'WateringTest',
+          path: '/wateringTest',
+          asyncParams: {
+            'plant': getDoc(['plants'], PlantsRecord.fromSnapshot),
+            'myPlant':
+                getDoc(['users', 'MyPlants'], MyPlantsRecord.fromSnapshot),
+          },
+          builder: (context, params) => WateringTestWidget(
+            plant: params.getParam(
+              'plant',
+              ParamType.Document,
+            ),
+            myPlant: params.getParam(
+              'myPlant',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'PlantSearch',
+          path: '/plantSearch',
+          builder: (context, params) => const PlantSearchWidget(),
         ),
         FFRoute(
           name: 'backendTest',

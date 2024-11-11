@@ -13,6 +13,47 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '/backend/sqlite/sqlite_manager.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
+DateTime calculateNextWatering(
+  double currentTemperature,
+  double currentHumidity,
+  double currentRainFall,
+  double wateringFrequency,
+  double maxTemp,
+  double minTemp,
+  double maxHumidity,
+  double minHumidity,
+  DateTime lastWateredDate,
+  bool location,
+) {
+  double daysUntilNextWatering = wateringFrequency;
+
+  // Adjust based on temperature
+  if (currentTemperature > maxTemp) {
+    daysUntilNextWatering -= 1; // Water more frequently if it's hot
+  } else if (currentTemperature < minTemp) {
+    daysUntilNextWatering += 1; // Water less frequently if it's cold
+  } else
+    daysUntilNextWatering -= 1; // Take away one day
+
+  // Adjust based on humidity
+  if (currentHumidity > maxHumidity) {
+    daysUntilNextWatering += 1; // High humidity slows soil drying
+  } else if (currentHumidity < minHumidity) {
+    daysUntilNextWatering -= 1; // Low humidity dries soil faster
+  } else
+    daysUntilNextWatering -= 1;
+
+  // Adjust based on rainfall (if it's raining, delay watering)
+  // If the plant's location is inside set rainfall to 0
+  if (location == true) currentRainFall = 0;
+  if (currentRainFall > 0) {
+    daysUntilNextWatering += 2; // Delay watering by 2 days if there's rainfall
+  } else
+    daysUntilNextWatering -= 1; // Take away a day for no rain
+
+  return lastWateredDate.add(Duration(days: daysUntilNextWatering.toInt()));
+}
+
 double celsiusToFahrenheit(double celsius) {
   return celsius * 1.8 + 32.0;
 }

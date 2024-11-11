@@ -48,38 +48,10 @@ class _MyPlantsWidgetState extends State<MyPlantsWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent('MY_PLANTS_PAGE_SIGNOUT_BTN_ON_TAP');
-                      logFirebaseEvent('Button_auth');
-                      GoRouter.of(context).prepareAuthEvent();
-                      await authManager.signOut();
-                      GoRouter.of(context).clearRedirectLocation();
-
-                      context.goNamedAuth('LoginPage', context.mounted);
-                    },
-                    text: 'Signout',
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).buttonColor,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleMedium.override(
-                                fontFamily: 'Inter',
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                  ),
-                ],
+                children: [],
               ),
               Expanded(
                 child: Padding(
@@ -276,6 +248,50 @@ class _MyPlantsWidgetState extends State<MyPlantsWidget> {
                     ),
                   ),
                 ],
+              ),
+              FFButtonWidget(
+                onPressed: () {
+                  print('Button pressed ...');
+                },
+                text: 'Watering Test',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  iconPadding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).buttonColor,
+                  textStyle: FlutterFlowTheme.of(context).titleMedium.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                      ),
+                  elevation: 0.0,
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+              ),
+              FFButtonWidget(
+                onPressed: () async {
+                  logFirebaseEvent('MY_PLANTS_PAGE_LOG_OUT_BTN_ON_TAP');
+                  logFirebaseEvent('Button_auth');
+                  GoRouter.of(context).prepareAuthEvent();
+                  await authManager.signOut();
+                  GoRouter.of(context).clearRedirectLocation();
+
+                  context.goNamedAuth('LoginPage', context.mounted);
+                },
+                text: 'Log Out',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  iconPadding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).buttonColor,
+                  textStyle: FlutterFlowTheme.of(context).titleMedium.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                      ),
+                  elevation: 0.0,
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
               ),
             ],
           ),

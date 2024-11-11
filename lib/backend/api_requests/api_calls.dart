@@ -110,6 +110,45 @@ class GetPlantURLCall {
           .toList();
 }
 
+class GetWeatherCall {
+  static Future<ApiCallResponse> call({
+    double? lat = 0.0000,
+    double? lon = 0.0000,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetWeather',
+      apiUrl:
+          'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=d73d79f658e8f576a43ec532595553a4',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'lat': lat,
+        'lon': lon,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static double? temperature(dynamic response) =>
+      castToType<double>(getJsonField(
+        response,
+        r'''$.main.temp''',
+      ));
+  static double? humidity(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.main.humidity''',
+      ));
+  static dynamic rainFall(dynamic response) => getJsonField(
+        response,
+        r'''$.rain''',
+      );
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

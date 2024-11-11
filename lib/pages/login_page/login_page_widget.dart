@@ -633,15 +633,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                   FFButtonWidget(
                                     onPressed: () async {
                                       logFirebaseEvent(
-                                          'LOGIN_CREATE_ACCOUNT_BTN_ON_TAP');
-                                      logFirebaseEvent('Button_validate_form');
+                                          'LOGIN_PAGE_PAGE_Button_SignUp_ON_TAP');
+                                      logFirebaseEvent(
+                                          'Button_SignUp_validate_form');
                                       if (_model.formKey2.currentState ==
                                               null ||
                                           !_model.formKey2.currentState!
                                               .validate()) {
                                         return;
                                       }
-                                      logFirebaseEvent('Button_auth');
+                                      logFirebaseEvent('Button_SignUp_auth');
                                       GoRouter.of(context).prepareAuthEvent();
                                       if (_model.signupPasswordTextController
                                               .text !=
@@ -679,7 +680,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                 _model.nameTextController.text,
                                           ));
 
-                                      logFirebaseEvent('Button_navigate_to');
+                                      logFirebaseEvent(
+                                          'Button_SignUp_navigate_to');
 
                                       context.pushNamedAuth(
                                           'MyPlants', context.mounted);
@@ -982,15 +984,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                   FFButtonWidget(
                                     onPressed: () async {
                                       logFirebaseEvent(
-                                          'LOGIN_PAGE_PAGE_LOGIN_BTN_ON_TAP');
-                                      logFirebaseEvent('Button_validate_form');
+                                          'LOGIN_PAGE_PAGE_Button_Login_ON_TAP');
+                                      logFirebaseEvent(
+                                          'Button_Login_validate_form');
                                       if (_model.formKey1.currentState ==
                                               null ||
                                           !_model.formKey1.currentState!
                                               .validate()) {
                                         return;
                                       }
-                                      logFirebaseEvent('Button_auth');
+                                      logFirebaseEvent('Button_Login_auth');
                                       GoRouter.of(context).prepareAuthEvent();
 
                                       final user =
@@ -1002,6 +1005,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                       if (user == null) {
                                         return;
                                       }
+
+                                      logFirebaseEvent(
+                                          'Button_Login_navigate_to');
 
                                       context.goNamedAuth(
                                           'MyPlants', context.mounted);

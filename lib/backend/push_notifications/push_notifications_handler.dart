@@ -109,8 +109,16 @@ final parametersBuilderMap =
     <String, Future<ParameterData> Function(Map<String, dynamic>)>{
   'LoginPage': ParameterData.none(),
   'AccountCreationPage': ParameterData.none(),
-  'PlantSearch': ParameterData.none(),
   'MyPlants': ParameterData.none(),
+  'WateringTest': (data) async => ParameterData(
+        allParams: {
+          'plant': await getDocumentParameter<PlantsRecord>(
+              data, 'plant', PlantsRecord.fromSnapshot),
+          'myPlant': await getDocumentParameter<MyPlantsRecord>(
+              data, 'myPlant', MyPlantsRecord.fromSnapshot),
+        },
+      ),
+  'PlantSearch': ParameterData.none(),
   'backendTest': ParameterData.none(),
   'PlantConfirmationPage': (data) async => ParameterData(
         allParams: {
