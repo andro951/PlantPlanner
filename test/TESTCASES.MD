@@ -9,4 +9,4 @@
  - <https://docs.google.com/presentation/d/19YFx9bFBeTy3C9P9sTEniqHsvdJwsurDnO0gvVj3JFM/edit#slide=id.p> US4: {Golden Path description}
 
 
- - <https://docs.google.com/presentation/d/1VgOwbGYrPt4ImTXQvWP5IHJXmyBF665jdy6tcD1l2dM/edit#slide=id.p> US5: …
+ - <https://docs.google.com/presentation/d/1VgOwbGYrPt4ImTXQvWP5IHJXmyBF665jdy6tcD1l2dM/edit#slide=id.p> US5: getWaterInXDaysString Custom Function
