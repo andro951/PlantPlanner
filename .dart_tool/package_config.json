@@ -3,7 +3,7 @@
   "packages": [
     {
       "name": "_flutterfire_internals",
-      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.45",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.46",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -128,6 +128,24 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "dropdown_button2",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/dropdown_button2-2.3.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "easy_debounce",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/easy_debounce-2.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "equatable",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1",
       "packageUri": "lib/",
@@ -144,6 +162,12 @@
       "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "file_picker",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-8.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "file_selector_linux",
@@ -170,8 +194,44 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "firebase_analytics",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_analytics-11.3.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "firebase_analytics_platform_interface",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_analytics_platform_interface-4.2.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "firebase_analytics_web",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_analytics_web-0.5.10+4",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "firebase_auth",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-5.3.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "firebase_auth_platform_interface",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.4.9",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "firebase_auth_web",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.13.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "firebase_core",
-      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-3.7.0",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-3.8.0",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -202,6 +262,24 @@
     {
       "name": "firebase_messaging_web",
       "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_messaging_web-3.9.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "firebase_storage",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage-12.3.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "firebase_storage_platform_interface",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_platform_interface-5.1.33",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "firebase_storage_web",
+      "rootUri": "file:///C:/Users/keann/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_web-3.10.5",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -860,7 +938,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-11-14T19:01:49.480664Z",
+  "generated": "2024-11-14T21:49:58.781997Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///C:/tools/flutter",
