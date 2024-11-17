@@ -52,7 +52,14 @@ final settings = await messaging.requestPermission(
    print('Permission granted: ${settings.authorizationStatus}');
  }
 
- // TODO: Register with FCM
+ // Register with FCM
+ // It requests a registration token for sending messages to users from your App server or other trusted server environment.
+String? token = await messaging.getToken();
+
+if (kDebugMode) {
+  print('Registration Token=$token');
+}
+
  // TODO: Set up foreground message handler
  // TODO: Set up background message handler
 
