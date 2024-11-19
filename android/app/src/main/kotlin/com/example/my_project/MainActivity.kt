@@ -1,4 +1,4 @@
-package com.csc305soft.plantplanner
+package com.uricsc305.plantplanner
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'serialization_util.dart';
-import '../backend.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -72,15 +69,11 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
   @override
   Widget build(BuildContext context) => _loading
-      ? Center(
-          child: SizedBox(
-            width: 50.0,
-            height: 50.0,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                FlutterFlowTheme.of(context).primary,
-              ),
-            ),
+      ? Container(
+          color: const Color(0xFFB1D7BE),
+          child: Image.asset(
+            'assets/images/plantLogo_(1).png',
+            fit: BoxFit.contain,
           ),
         )
       : widget.child;
@@ -107,26 +100,20 @@ class ParameterData {
 
 final parametersBuilderMap =
     <String, Future<ParameterData> Function(Map<String, dynamic>)>{
-  'LoginPage': ParameterData.none(),
-  'AccountCreationPage': ParameterData.none(),
-  'MyPlants': ParameterData.none(),
-  'WateringTest': (data) async => ParameterData(
-        allParams: {
-          'plant': await getDocumentParameter<PlantsRecord>(
-              data, 'plant', PlantsRecord.fromSnapshot),
-          'myPlant': await getDocumentParameter<MyPlantsRecord>(
-              data, 'myPlant', MyPlantsRecord.fromSnapshot),
-        },
-      ),
   'PlantSearch': ParameterData.none(),
+  'MyPlants': ParameterData.none(),
   'backendTest': ParameterData.none(),
-  'PlantConfirmationPage': (data) async => ParameterData(
-        allParams: {
-          'plant': await getDocumentParameter<PlantsOldRecord>(
-              data, 'plant', PlantsOldRecord.fromSnapshot),
-        },
+  'PlantConfirmationPage': (data) async => const ParameterData(
+        allParams: {},
       ),
+  'SignupPage': ParameterData.none(),
+  'ProfileCreationPage': ParameterData.none(),
   'PlantSearchCopy': ParameterData.none(),
+  'PlantInfo': (data) async => const ParameterData(
+        allParams: {},
+      ),
+  'tasks': ParameterData.none(),
+  'APIURL': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

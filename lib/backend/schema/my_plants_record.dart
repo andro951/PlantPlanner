@@ -55,6 +55,11 @@ class MyPlantsRecord extends FirestoreRecord {
   DateTime? get lastFertilized => _lastFertilized;
   bool hasLastFertilized() => _lastFertilized != null;
 
+  // "PermapeopleId" field.
+  int? _permapeopleId;
+  int get permapeopleId => _permapeopleId ?? 0;
+  bool hasPermapeopleId() => _permapeopleId != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -67,6 +72,7 @@ class MyPlantsRecord extends FirestoreRecord {
     _fertilizerFrequencyInDays =
         castToType<double>(snapshotData['FertilizerFrequencyInDays']);
     _lastFertilized = snapshotData['LastFertilized'] as DateTime?;
+    _permapeopleId = castToType<int>(snapshotData['PermapeopleId']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -117,6 +123,7 @@ Map<String, dynamic> createMyPlantsRecordData({
   bool? fertilizerReminders,
   double? fertilizerFrequencyInDays,
   DateTime? lastFertilized,
+  int? permapeopleId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -128,6 +135,7 @@ Map<String, dynamic> createMyPlantsRecordData({
       'FertilizerReminders': fertilizerReminders,
       'FertilizerFrequencyInDays': fertilizerFrequencyInDays,
       'LastFertilized': lastFertilized,
+      'PermapeopleId': permapeopleId,
     }.withoutNulls,
   );
 
@@ -146,7 +154,8 @@ class MyPlantsRecordDocumentEquality implements Equality<MyPlantsRecord> {
         e1?.indoor == e2?.indoor &&
         e1?.fertilizerReminders == e2?.fertilizerReminders &&
         e1?.fertilizerFrequencyInDays == e2?.fertilizerFrequencyInDays &&
-        e1?.lastFertilized == e2?.lastFertilized;
+        e1?.lastFertilized == e2?.lastFertilized &&
+        e1?.permapeopleId == e2?.permapeopleId;
   }
 
   @override
@@ -158,7 +167,8 @@ class MyPlantsRecordDocumentEquality implements Equality<MyPlantsRecord> {
         e?.indoor,
         e?.fertilizerReminders,
         e?.fertilizerFrequencyInDays,
-        e?.lastFertilized
+        e?.lastFertilized,
+        e?.permapeopleId
       ]);
 
   @override

@@ -28,12 +28,22 @@ class SQLiteManager {
 
   /// START READ QUERY CALLS
 
-  Future<List<SearchByNameRow>> searchByName({
+  Future<List<PlantQueryRow>> plantQuery({
     String? searchString,
+    String? column,
   }) =>
-      performSearchByName(
+      performPlantQuery(
         _database,
         searchString: searchString,
+        column: column,
+      );
+
+  Future<List<GetPlantByIdRow>> getPlantById({
+    int? permapeopleId,
+  }) =>
+      performGetPlantById(
+        _database,
+        permapeopleId: permapeopleId,
       );
 
   /// END READ QUERY CALLS

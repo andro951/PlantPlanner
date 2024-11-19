@@ -9,15 +9,15 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:firebase_messaging/firebase_messaging.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> unsubscribeFromPlantTopic(String plantId) async {
-  try {
+  /*try {
     await FirebaseMessaging.instance.unsubscribeFromTopic(plantId);
     print("Successfully unsubscribed from topic: $plantId");
   } catch (e) {
     print("Error unsubscribing from topic $plantId: $e");
-  }
+  }*/
 }
 
 // Set your action name, define your arguments and return parameter,

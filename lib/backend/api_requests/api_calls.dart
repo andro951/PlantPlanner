@@ -67,7 +67,7 @@ class GetPlantURLCall {
         'organs': organ1,
         'include-related-images': true,
         'no-reject': true,
-        'nb-results': 10,
+        'nb-results': 1,
         'type': "kt",
         'api-key': "2b10k0dN32PnU79DsEdMpLL",
         'lang': "en",
@@ -85,21 +85,12 @@ class GetPlantURLCall {
         response,
         r'''$.bestMatch''',
       ));
-  static List<String>? scientificName(dynamic response) => (getJsonField(
-        response,
-        r'''$.results[:].species.scientificNameWithoutAuthor''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
   static List? commonNames(dynamic response) => getJsonField(
         response,
         r'''$.results[:].species.commonNames''',
         true,
       ) as List?;
-  static List<String>? imageO(dynamic response) => (getJsonField(
+  static List<String>? similarImage(dynamic response) => (getJsonField(
         response,
         r'''$.results[:].images[:].url.o''',
         true,
@@ -108,23 +99,26 @@ class GetPlantURLCall {
           .map((x) => castToType<String>(x))
           .withoutNulls
           .toList();
+  static List? resultspecies(dynamic response) => getJsonField(
+        response,
+        r'''$.results[:].species''',
+        true,
+      ) as List?;
 }
 
-class GetWeatherCall {
+class PermapeoplePlantByIdCall {
   static Future<ApiCallResponse> call({
-    double? lat = 0.0000,
-    double? lon = 0.0000,
+    int? id = 0,
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'GetWeather',
-      apiUrl:
-          'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=d73d79f658e8f576a43ec532595553a4',
+      callName: 'permapeoplePlantById',
+      apiUrl: 'https://permapeople.org/api/plants/$id',
       callType: ApiCallType.GET,
-      headers: {},
-      params: {
-        'lat': lat,
-        'lon': lon,
+      headers: {
+        'x-permapeople-key-id': 'Q50mL8YBTDCn',
+        'x-permapeople-key-secret': '5548a3fa-9657-4a70-b50f-8df20910b130',
       },
+      params: {},
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -134,19 +128,85 @@ class GetWeatherCall {
     );
   }
 
-  static double? temperature(dynamic response) =>
-      castToType<double>(getJsonField(
+  static int? id(dynamic response) => castToType<int>(getJsonField(
         response,
-        r'''$.main.temp''',
+        r'''$.id''',
       ));
-  static double? humidity(dynamic response) => castToType<double>(getJsonField(
+  static String? name(dynamic response) => castToType<String>(getJsonField(
         response,
-        r'''$.main.humidity''',
+        r'''$.name''',
       ));
-  static dynamic rainFall(dynamic response) => getJsonField(
+  static String? slug(dynamic response) => castToType<String>(getJsonField(
         response,
-        r'''$.rain''',
+        r'''$.slug''',
+      ));
+  static List? data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      ) as List?;
+  static List<String>? dataKey(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].key''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? dataValue(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].value''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static String? description(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.description''',
+      ));
+  static String? createdAt(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.created_at''',
+      ));
+  static String? updatedAt(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.updated_at''',
+      ));
+  static String? scientificName(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.scientific_name''',
+      ));
+  static int? version(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.version''',
+      ));
+  static String? type(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.type''',
+      ));
+  static String? link(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.link''',
+      ));
+  static dynamic images(dynamic response) => getJsonField(
+        response,
+        r'''$.images''',
       );
+  static String? imagesThumb(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.images.thumb''',
+      ));
+  static String? imagesTitle(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.images.title''',
+      ));
 }
 
 class ApiPagingParams {

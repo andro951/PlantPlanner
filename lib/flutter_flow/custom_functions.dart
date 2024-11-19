@@ -25,6 +25,8 @@ DateTime calculateNextWatering(
   DateTime lastWateredDate,
   bool location,
 ) {
+  // THIS FUNCTION IS NOT USED
+
   double daysUntilNextWatering = wateringFrequency;
 
   // Adjust based on temperature
@@ -103,4 +105,19 @@ bool containsString(
   if (string.length < 1) return false;
 
   return string.toLowerCase().contains(subString.toLowerCase());
+}
+
+String doubleToString(double d) {
+  return "$d";
+}
+
+List<String> makeListOfImage(
+  String image,
+  int count,
+) {
+  return List<String>.filled(count, image);
+}
+
+String stringAsImagePath(String string) {
+  return string;
 }

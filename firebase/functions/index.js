@@ -4,7 +4,6 @@ admin.initializeApp();
 
 const kFcmTokensCollection = "fcm_tokens";
 const kPushNotificationsCollection = "ff_push_notifications";
-const kSchedulerIntervalMinutes = 60;
 const firestore = admin.firestore();
 
 const kPushNotificationRuntimeOpts = {
@@ -72,38 +71,6 @@ exports.sendPushNotificationsTrigger = functions
     } catch (e) {
       console.log(`Error: ${e}`);
       await snapshot.ref.update({ status: "failed", error: `${e}` });
-    }
-  });
-
-exports.sendScheduledPushNotifications = functions.pubsub
-  .schedule(`every ${kSchedulerIntervalMinutes} minutes synchronized`)
-  .onRun(async (_) => {
-    const minutesToMilliseconds = (minutes) => minutes * 60 * 1000;
-    function currentTimeDownToNearestMinute() {
-      // Add a second to the current time to avoid minute boundary issues.
-      const currentTime = new Date(new Date().getTime() + 1000);
-      // Remove seconds and milliseconds to get the time down to the minute.
-      currentTime.setSeconds(0, 0);
-      return currentTime;
-    }
-
-    // Determine the cutoff times for this round of push notifications.
-    const intervalMs = minutesToMilliseconds(kSchedulerIntervalMinutes);
-    const upperCutoffTime = currentTimeDownToNearestMinute();
-    const lowerCutoffTime = new Date(upperCutoffTime.getTime() - intervalMs);
-    // Send push notifications that we've scheduled.
-    const scheduledNotifications = await firestore
-      .collection(kPushNotificationsCollection)
-      .where("scheduled_time", ">", lowerCutoffTime)
-      .where("scheduled_time", "<=", upperCutoffTime)
-      .get();
-    for (var snapshot of scheduledNotifications.docs) {
-      try {
-        await sendPushNotifications(snapshot);
-      } catch (e) {
-        console.log(`Error: ${e}`);
-        await snapshot.ref.update({ status: "failed", error: `${e}` });
-      }
     }
   });
 
@@ -242,4 +209,76 @@ function getCharForIndex(charIdx) {
 exports.onUserDeleted = functions.auth.user().onDelete(async (user) => {
   let firestore = admin.firestore();
   let userRef = firestore.doc("users/" + user.uid);
+});
+const OneSignal = require("@onesignal/node-onesignal");
+
+const kUserKey = "q6go3qewtujhnaxelusjcv5rp";
+const kAPIKey = "ugs6fambje5qnbifa44q5wigg";
+
+const configuration = OneSignal.createConfiguration({
+  userKey: kUserKey,
+  appKey: kAPIKey,
+});
+const client = new OneSignal.DefaultApi(configuration);
+const user = new OneSignal.User();
+const axios = require("axios");
+
+exports.addUser = functions.https.onCall(async (data, context) => {
+  if (context.auth.uid != data.user_id) {
+    return "Unauthenticated calls are not allowed.";
+  }
+  try {
+    user.identity = {
+      external_id: data.user_id,
+    };
+    user.properties = {
+      tags: data.tags,
+    };
+    user.subscriptions = data.subscriptions;
+    const createdUser = await client.createUser(
+      "6c827aaf-20d2-4e05-87ab-4f38e3be97dd",
+      user,
+    );
+    if (createdUser.identity["onesignal_id"] == null) {
+      throw new functions.https.HttpsError(
+        "aborted",
+        "Could not create OneSignal user",
+      );
+    }
+    return createdUser;
+  } catch (err) {
+    console.error(
+      `Unable to create user ${context.auth.uid}.
+            Error ${err}`,
+    );
+    throw new functions.https.HttpsError(
+      "aborted",
+      "Could not create OneSignal user",
+    );
+  }
+});
+
+exports.deleteUser = functions.https.onCall(async (data, context) => {
+  if (context.auth.uid != data.user_id) {
+    return "Unauthenticated calls are not allowed.";
+  }
+
+  const url = `https://api.onesignal.com/apps/6c827aaf-20d2-4e05-87ab-4f38e3be97dd/users/by/external_id/${data.user_id}`;
+
+  try {
+    await axios.delete(url, {
+      headers: {
+        Authorization: `Basic ${kAPIKey}`,
+      },
+    });
+    return "User deleted";
+  } catch (err) {
+    console.error(
+      `Unable to delete user ${context.auth.uid}. Error: ${err.message}`,
+    );
+    throw new functions.https.HttpsError(
+      "aborted",
+      "Could not delete OneSignal user",
+    );
+  }
 });

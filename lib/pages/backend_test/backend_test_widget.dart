@@ -192,7 +192,7 @@ class _BackendTestWidgetState extends State<BackendTestWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.network(
-                  GetPlantURLCall.imageO(
+                  GetPlantURLCall.similarImage(
                     (_model.apiResultmei?.jsonBody ?? ''),
                   )!
                       .first,
@@ -200,7 +200,7 @@ class _BackendTestWidgetState extends State<BackendTestWidget> {
                   height: 100.0,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
-                    'assets/images/error_image.jpeg',
+                    'assets/images/error_image.png',
                     width: 100.0,
                     height: 100.0,
                     fit: BoxFit.cover,
@@ -215,7 +215,7 @@ class _BackendTestWidgetState extends State<BackendTestWidget> {
                   height: 100.0,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
-                    'assets/images/error_image.jpeg',
+                    'assets/images/error_image.png',
                     width: 100.0,
                     height: 100.0,
                     fit: BoxFit.cover,
@@ -230,7 +230,7 @@ class _BackendTestWidgetState extends State<BackendTestWidget> {
                   height: 100.0,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
-                    'assets/images/error_image.jpeg',
+                    'assets/images/error_image.png',
                     width: 100.0,
                     height: 100.0,
                     fit: BoxFit.cover,

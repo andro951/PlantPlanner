@@ -2,14 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/backend/backend.dart';
 
+import '/backend/sqlite/sqlite_manager.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
 import '/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -70,57 +69,31 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
+GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
+    GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const MyPlantsWidget() : const LoginPageWidget(),
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? entryPage ?? const MyPlantsWidget()
+          : const SignupPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const MyPlantsWidget() : const LoginPageWidget(),
-        ),
-        FFRoute(
-          name: 'LoginPage',
-          path: '/loginPage',
-          builder: (context, params) => const LoginPageWidget(),
-        ),
-        FFRoute(
-          name: 'AccountCreationPage',
-          path: '/accountCreationPage',
-          builder: (context, params) => const AccountCreationPageWidget(),
-        ),
-        FFRoute(
-          name: 'MyPlants',
-          path: '/myPlants',
-          builder: (context, params) => const MyPlantsWidget(),
-        ),
-        FFRoute(
-          name: 'WateringTest',
-          path: '/wateringTest',
-          asyncParams: {
-            'plant': getDoc(['plants'], PlantsRecord.fromSnapshot),
-            'myPlant':
-                getDoc(['users', 'MyPlants'], MyPlantsRecord.fromSnapshot),
-          },
-          builder: (context, params) => WateringTestWidget(
-            plant: params.getParam(
-              'plant',
-              ParamType.Document,
-            ),
-            myPlant: params.getParam(
-              'myPlant',
-              ParamType.Document,
-            ),
-          ),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? entryPage ?? const MyPlantsWidget()
+              : const SignupPageWidget(),
         ),
         FFRoute(
           name: 'PlantSearch',
           path: '/plantSearch',
           builder: (context, params) => const PlantSearchWidget(),
+        ),
+        FFRoute(
+          name: 'MyPlants',
+          path: '/myPlants',
+          builder: (context, params) => const MyPlantsWidget(),
         ),
         FFRoute(
           name: 'backendTest',
@@ -130,20 +103,47 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'PlantConfirmationPage',
           path: '/plantConfirmationPage',
-          asyncParams: {
-            'plant': getDoc(['plantsOld'], PlantsOldRecord.fromSnapshot),
-          },
           builder: (context, params) => PlantConfirmationPageWidget(
-            plant: params.getParam(
+            plant: params.getParam<PlantQueryRow>(
               'plant',
-              ParamType.Document,
+              ParamType.SqliteRow,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'SignupPage',
+          path: '/signupPage',
+          builder: (context, params) => const SignupPageWidget(),
+        ),
+        FFRoute(
+          name: 'ProfileCreationPage',
+          path: '/profileCreationPage',
+          builder: (context, params) => const ProfileCreationPageWidget(),
         ),
         FFRoute(
           name: 'PlantSearchCopy',
           path: '/plantSearchCopy',
           builder: (context, params) => const PlantSearchCopyWidget(),
+        ),
+        FFRoute(
+          name: 'PlantInfo',
+          path: '/plantInfo',
+          builder: (context, params) => PlantInfoWidget(
+            plant: params.getParam<PlantQueryRow>(
+              'plant',
+              ParamType.SqliteRow,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'tasks',
+          path: '/tasks',
+          builder: (context, params) => const TasksWidget(),
+        ),
+        FFRoute(
+          name: 'APIURL',
+          path: '/apiurl',
+          builder: (context, params) => const ApiurlWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -314,7 +314,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/loginPage';
+            return '/signupPage';
           }
           return null;
         },
@@ -328,15 +328,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
+              ? Container(
+                  color: const Color(0xFFB1D7BE),
+                  child: Image.asset(
+                    'assets/images/plantLogo_(1).png',
+                    fit: BoxFit.contain,
                   ),
                 )
               : PushNotificationsHandler(child: page);

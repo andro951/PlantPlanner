@@ -243,8 +243,10 @@ dynamic deserializeParam<T>(
       case ParamType.SqliteRow:
         final data = json.decode(param) as Map<String, dynamic>;
         switch (T) {
-          case SearchByNameRow:
-            return SearchByNameRow(data);
+          case PlantQueryRow:
+            return PlantQueryRow(data);
+          case GetPlantByIdRow:
+            return GetPlantByIdRow(data);
           default:
             return null;
         }

@@ -147,8 +147,10 @@ T? getParameter<T>(Map<String, dynamic> data, String paramName) {
       case FFUploadedFile:
         return uploadedFileFromString(param) as T;
 
-      case SearchByNameRow:
-        return SearchByNameRow(json.decode(param) as Map<String, dynamic>) as T;
+      case PlantQueryRow:
+        return PlantQueryRow(json.decode(param) as Map<String, dynamic>) as T;
+      case GetPlantByIdRow:
+        return GetPlantByIdRow(json.decode(param) as Map<String, dynamic>) as T;
     }
     if (param is String) {
       return FirebaseFirestore.instance.doc(param) as T;
