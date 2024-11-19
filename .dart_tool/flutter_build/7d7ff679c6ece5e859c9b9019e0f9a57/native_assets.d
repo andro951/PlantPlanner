@@ -1,0 +1,1 @@
+ C:\\Users\\keann\\OneDrive\\Desktop\\PlantPlannerCode\\PlantPlanner\\.dart_tool\\flutter_build\\7d7ff679c6ece5e859c9b9019e0f9a57\\native_assets.yaml: 
