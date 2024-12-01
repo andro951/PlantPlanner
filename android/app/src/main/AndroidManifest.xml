@@ -9,6 +9,9 @@
         tools:replace="android:label"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
+        <!-- Turns off automatically opening the app when notification is pressed. -->
+        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
+
 
         <activity
             android:name=".MainActivity"
