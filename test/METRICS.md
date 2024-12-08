@@ -13,6 +13,10 @@
      - **Detractors** (0-6)
   - We determine the overall Net Promoter Score basefd off a formula, essentially we find the difference between Promoters and Detractors and divide the difference by the Total number of respondents, which then we find the exact percent of our NPS.
 
+### Metric 2: Adoption Rate:
+
+- **How we collect Adoption Rate Data:**
+  - Make use of the data provided by Google Play Store Analytics to determine how many new users start using the app. This data helps us detrmine how effective marketing strategies such as the trade show style presentation for the finals, and what changes need to be made.
 
 ### Metric 3: Daily Active Users
 
