@@ -20,12 +20,16 @@ class FFDevEnvironmentValues {
       final String response =
           await rootBundle.loadString(environmentValuesPath);
       final data = await json.decode(response);
-      _apiurl = data['apiurl'];
+      _organfeature = data['organfeature'];
+      _relatedImage = data['relatedImage'];
     } catch (e) {
       print('Error loading environment values: $e');
     }
   }
 
-  bool _apiurl = false;
-  bool get apiurl => _apiurl;
+  String _organfeature = '';
+  String get organfeature => _organfeature;
+
+  bool _relatedImage = false;
+  bool get relatedImage => _relatedImage;
 }

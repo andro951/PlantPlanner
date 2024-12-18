@@ -60,6 +60,21 @@ class MyPlantsRecord extends FirestoreRecord {
   int get permapeopleId => _permapeopleId ?? 0;
   bool hasPermapeopleId() => _permapeopleId != null;
 
+  // "TimeUntilWatering" field.
+  String? _timeUntilWatering;
+  String get timeUntilWatering => _timeUntilWatering ?? '';
+  bool hasTimeUntilWatering() => _timeUntilWatering != null;
+
+  // "TimeUntilFertilizing" field.
+  String? _timeUntilFertilizing;
+  String get timeUntilFertilizing => _timeUntilFertilizing ?? '';
+  bool hasTimeUntilFertilizing() => _timeUntilFertilizing != null;
+
+  // "WateringReminders" field.
+  bool? _wateringReminders;
+  bool get wateringReminders => _wateringReminders ?? false;
+  bool hasWateringReminders() => _wateringReminders != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -73,6 +88,9 @@ class MyPlantsRecord extends FirestoreRecord {
         castToType<double>(snapshotData['FertilizerFrequencyInDays']);
     _lastFertilized = snapshotData['LastFertilized'] as DateTime?;
     _permapeopleId = castToType<int>(snapshotData['PermapeopleId']);
+    _timeUntilWatering = snapshotData['TimeUntilWatering'] as String?;
+    _timeUntilFertilizing = snapshotData['TimeUntilFertilizing'] as String?;
+    _wateringReminders = snapshotData['WateringReminders'] as bool?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -124,6 +142,9 @@ Map<String, dynamic> createMyPlantsRecordData({
   double? fertilizerFrequencyInDays,
   DateTime? lastFertilized,
   int? permapeopleId,
+  String? timeUntilWatering,
+  String? timeUntilFertilizing,
+  bool? wateringReminders,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -136,6 +157,9 @@ Map<String, dynamic> createMyPlantsRecordData({
       'FertilizerFrequencyInDays': fertilizerFrequencyInDays,
       'LastFertilized': lastFertilized,
       'PermapeopleId': permapeopleId,
+      'TimeUntilWatering': timeUntilWatering,
+      'TimeUntilFertilizing': timeUntilFertilizing,
+      'WateringReminders': wateringReminders,
     }.withoutNulls,
   );
 
@@ -155,7 +179,10 @@ class MyPlantsRecordDocumentEquality implements Equality<MyPlantsRecord> {
         e1?.fertilizerReminders == e2?.fertilizerReminders &&
         e1?.fertilizerFrequencyInDays == e2?.fertilizerFrequencyInDays &&
         e1?.lastFertilized == e2?.lastFertilized &&
-        e1?.permapeopleId == e2?.permapeopleId;
+        e1?.permapeopleId == e2?.permapeopleId &&
+        e1?.timeUntilWatering == e2?.timeUntilWatering &&
+        e1?.timeUntilFertilizing == e2?.timeUntilFertilizing &&
+        e1?.wateringReminders == e2?.wateringReminders;
   }
 
   @override
@@ -168,7 +195,10 @@ class MyPlantsRecordDocumentEquality implements Equality<MyPlantsRecord> {
         e?.fertilizerReminders,
         e?.fertilizerFrequencyInDays,
         e?.lastFertilized,
-        e?.permapeopleId
+        e?.permapeopleId,
+        e?.timeUntilWatering,
+        e?.timeUntilFertilizing,
+        e?.wateringReminders
       ]);
 
   @override

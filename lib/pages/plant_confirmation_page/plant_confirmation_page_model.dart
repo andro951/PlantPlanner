@@ -29,6 +29,11 @@ class PlantConfirmationPageModel
     return null;
   }
 
+  // State field(s) for IndoorsCheckbox widget.
+  bool? indoorsCheckboxValue;
+  // State field(s) for WaterCheckbox widget.
+  bool? waterCheckboxValue;
+  DateTime? datePicked1;
   // State field(s) for WateringFrequency widget.
   FocusNode? wateringFrequencyFocusNode;
   TextEditingController? wateringFrequencyTextController;
@@ -50,11 +55,9 @@ class PlantConfirmationPageModel
     return null;
   }
 
-  DateTime? datePicked1;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue1;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue2;
+  // State field(s) for FertilizeCheckbox widget.
+  bool? fertilizeCheckboxValue;
+  DateTime? datePicked2;
   // State field(s) for FertilizerFrequency widget.
   FocusNode? fertilizerFrequencyFocusNode;
   TextEditingController? fertilizerFrequencyTextController;
@@ -75,8 +78,6 @@ class PlantConfirmationPageModel
     }
     return null;
   }
-
-  DateTime? datePicked2;
 
   @override
   void initState(BuildContext context) {

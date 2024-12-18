@@ -10,6 +10,7 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/sqlite/sqlite_manager.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
@@ -65,7 +66,7 @@ String getWaterInXDaysString(
   double wateringFrequency,
 ) {
   final double daysSinceWatered =
-      DateTime.now().difference(lastWatered).inHours / 24.0;
+      DateTime.now().difference(lastWatered).inMinutes / 1440.0;
   final double daysToNextWater = wateringFrequency - daysSinceWatered;
   if (daysToNextWater <= 0.0) {
     return "Water Now!";
@@ -84,7 +85,7 @@ String getFertilizeInXDaysString(
   double fertilizeFrequency,
 ) {
   final double daysSinceWatered =
-      DateTime.now().difference(lastFertilized).inHours / 24.0;
+      DateTime.now().difference(lastFertilized).inMinutes / 1440.0;
   final double daysToNextFertilize = fertilizeFrequency - daysSinceWatered;
   if (daysToNextFertilize <= 0.0) {
     return "Fertilize Now!";
@@ -120,4 +121,71 @@ List<String> makeListOfImage(
 
 String stringAsImagePath(String string) {
   return string;
+}
+
+bool plantQueryIsNull(PlantQueryRow? plant) {
+  return plant == null;
+}
+
+List<NotificationStruct> getNotificationList(List<MyPlantsRecord> myPlants) {
+  final data = <(
+    String name,
+    String description,
+    DateTime dateTime,
+    int permapeopleId,
+    MyPlantsRecord plant
+  )>[];
+
+  for (final plant in myPlants) {
+    // Calculate watering notification
+    if (plant.wateringReminders &&
+        plant.wateringFrequency > 0.0 &&
+        plant.lastWatered != null) {
+      final nextWateringDate = plant.lastWatered!.add(Duration(
+          seconds: (plant.wateringFrequency * Duration.secondsPerDay).toInt()));
+      data.add((
+        '${plant.nickname} (${plant.name})',
+        getWaterInXDaysString(plant.lastWatered!, plant.wateringFrequency),
+        nextWateringDate,
+        plant.permapeopleId,
+        plant
+      ));
+    }
+
+    // Calculate fertilizing notification
+    if (plant.fertilizerReminders &&
+        plant.fertilizerFrequencyInDays > 0.0 &&
+        plant.lastFertilized != null) {
+      final nextFertilizingDate = plant.lastFertilized!.add(Duration(
+          seconds: (plant.fertilizerFrequencyInDays * Duration.secondsPerDay)
+              .toInt()));
+      data.add((
+        '${plant.nickname} (${plant.name})',
+        getFertilizeInXDaysString(
+            plant.lastFertilized!, plant.fertilizerFrequencyInDays),
+        nextFertilizingDate,
+        plant.permapeopleId,
+        plant
+      ));
+    }
+  }
+
+  // Sort the data by dateTime (index 2) in ascending order
+  data.sort((a, b) => a.$3.compareTo(b.$3));
+
+  // Map the sorted data to NotificationStruct objects
+  final notifications = data.map((entry) {
+    return NotificationStruct(
+        name: entry.$1, // Access name at index 0
+        description: entry.$2, // Access description at index 1
+        permapeopleId: entry.$4, // Access permapeopleId at index 3
+        myPlant: entry.$5.reference // Add the plant reference (new field)
+        );
+  }).toList();
+
+  return notifications;
+}
+
+String joinList(List<String> list) {
+  return list.join(', ');
 }

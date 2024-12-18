@@ -3,6 +3,10 @@ import 'signup_page_widget.dart' show SignupPageWidget;
 import 'package:flutter/material.dart';
 
 class SignupPageModel extends FlutterFlowModel<SignupPageWidget> {
+  ///  Local state fields for this page.
+
+  String temp = 'none';
+
   ///  State fields for stateful widgets in this page.
 
   final formKey1 = GlobalKey<FormState>();

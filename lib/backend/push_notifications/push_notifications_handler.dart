@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'serialization_util.dart';
+import '../backend.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -100,20 +102,44 @@ class ParameterData {
 
 final parametersBuilderMap =
     <String, Future<ParameterData> Function(Map<String, dynamic>)>{
-  'PlantSearch': ParameterData.none(),
+  'PlantSearch': (data) async => ParameterData(
+        allParams: {
+          'addPlantMode': getParameter<bool>(data, 'addPlantMode'),
+        },
+      ),
   'MyPlants': ParameterData.none(),
-  'backendTest': ParameterData.none(),
-  'PlantConfirmationPage': (data) async => const ParameterData(
-        allParams: {},
+  'PlantConfirmationPage': (data) async => ParameterData(
+        allParams: {
+          'myPlant': await getDocumentParameter<MyPlantsRecord>(
+              data, 'myPlant', MyPlantsRecord.fromSnapshot),
+          'backToHomePage': getParameter<bool>(data, 'backToHomePage'),
+        },
       ),
   'SignupPage': ParameterData.none(),
   'ProfileCreationPage': ParameterData.none(),
-  'PlantSearchCopy': ParameterData.none(),
-  'PlantInfo': (data) async => const ParameterData(
-        allParams: {},
+  'PlantInfo': (data) async => ParameterData(
+        allParams: {
+          'permapeopleId': getParameter<int>(data, 'permapeopleId'),
+          'myPlant': await getDocumentParameter<MyPlantsRecord>(
+              data, 'myPlant', MyPlantsRecord.fromSnapshot),
+          'addPlantMode': getParameter<bool>(data, 'addPlantMode'),
+        },
       ),
   'tasks': ParameterData.none(),
-  'APIURL': ParameterData.none(),
+  'HomePage': ParameterData.none(),
+  'PlantSearch2': (data) async => ParameterData(
+        allParams: {
+          'searchValue': getParameter<String>(data, 'searchValue'),
+          'searchedPlants': getParameter<String>(data, 'searchedPlants'),
+        },
+      ),
+  'sample': ParameterData.none(),
+  'DiseaseResults': (data) async => const ParameterData(
+        allParams: {},
+      ),
+  'DiseaseInfo': (data) async => const ParameterData(
+        allParams: {},
+      ),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

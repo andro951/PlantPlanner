@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/backend/sqlite/sqlite_manager.dart';
 import '/auth/base_auth_user_provider.dart';
@@ -15,6 +16,8 @@ export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
+
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
@@ -74,21 +77,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? entryPage ?? const MyPlantsWidget()
+          ? entryPage ?? const HomePageWidget()
           : const SignupPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? entryPage ?? const MyPlantsWidget()
+              ? entryPage ?? const HomePageWidget()
               : const SignupPageWidget(),
         ),
         FFRoute(
           name: 'PlantSearch',
           path: '/plantSearch',
-          builder: (context, params) => const PlantSearchWidget(),
+          builder: (context, params) => PlantSearchWidget(
+            addPlantMode: params.getParam(
+              'addPlantMode',
+              ParamType.bool,
+            ),
+          ),
         ),
         FFRoute(
           name: 'MyPlants',
@@ -96,17 +105,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const MyPlantsWidget(),
         ),
         FFRoute(
-          name: 'backendTest',
-          path: '/backendTest',
-          builder: (context, params) => const BackendTestWidget(),
-        ),
-        FFRoute(
           name: 'PlantConfirmationPage',
           path: '/plantConfirmationPage',
+          asyncParams: {
+            'myPlant':
+                getDoc(['users', 'MyPlants'], MyPlantsRecord.fromSnapshot),
+          },
           builder: (context, params) => PlantConfirmationPageWidget(
             plant: params.getParam<PlantQueryRow>(
               'plant',
               ParamType.SqliteRow,
+            ),
+            myPlant: params.getParam(
+              'myPlant',
+              ParamType.Document,
+            ),
+            backToHomePage: params.getParam(
+              'backToHomePage',
+              ParamType.bool,
             ),
           ),
         ),
@@ -121,17 +137,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const ProfileCreationPageWidget(),
         ),
         FFRoute(
-          name: 'PlantSearchCopy',
-          path: '/plantSearchCopy',
-          builder: (context, params) => const PlantSearchCopyWidget(),
-        ),
-        FFRoute(
           name: 'PlantInfo',
           path: '/plantInfo',
+          asyncParams: {
+            'myPlant':
+                getDoc(['users', 'MyPlants'], MyPlantsRecord.fromSnapshot),
+          },
           builder: (context, params) => PlantInfoWidget(
-            plant: params.getParam<PlantQueryRow>(
-              'plant',
+            permapeopleId: params.getParam(
+              'permapeopleId',
+              ParamType.int,
+            ),
+            myPlant: params.getParam(
+              'myPlant',
+              ParamType.Document,
+            ),
+            plantParameter: params.getParam<PlantQueryRow>(
+              'plantParameter',
               ParamType.SqliteRow,
+            ),
+            addPlantMode: params.getParam(
+              'addPlantMode',
+              ParamType.bool,
             ),
           ),
         ),
@@ -141,9 +168,49 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const TasksWidget(),
         ),
         FFRoute(
-          name: 'APIURL',
-          path: '/apiurl',
-          builder: (context, params) => const ApiurlWidget(),
+          name: 'HomePage',
+          path: '/homePage',
+          builder: (context, params) => const HomePageWidget(),
+        ),
+        FFRoute(
+          name: 'PlantSearch2',
+          path: '/plantSearch2',
+          builder: (context, params) => PlantSearch2Widget(
+            searchValue: params.getParam(
+              'searchValue',
+              ParamType.String,
+            ),
+            searchedPlants: params.getParam(
+              'searchedPlants',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'sample',
+          path: '/sample',
+          builder: (context, params) => const SampleWidget(),
+        ),
+        FFRoute(
+          name: 'DiseaseResults',
+          path: '/diseaseResults',
+          builder: (context, params) => DiseaseResultsWidget(
+            diseasepageparam: params.getParam<dynamic>(
+              'diseasepageparam',
+              ParamType.JSON,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'DiseaseInfo',
+          path: '/diseaseInfo',
+          builder: (context, params) => DiseaseInfoWidget(
+            diseaseJson: params.getParam(
+              'diseaseJson',
+              ParamType.JSON,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -263,6 +330,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -281,6 +349,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }

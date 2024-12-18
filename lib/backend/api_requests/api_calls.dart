@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -52,9 +53,11 @@ class PlantIdentificationCall {
 
 class GetPlantURLCall {
   static Future<ApiCallResponse> call({
-    String? organ1 = 'leaf',
+    String? organ1,
     String? imageURL = '',
   }) async {
+    organ1 ??= FFDevEnvironmentValues().organfeature;
+
     return ApiManager.instance.makeApiCall(
       callName: 'GetPlantURL',
       apiUrl: 'https://my-api.plantnet.org/v2/identify/all',
@@ -85,11 +88,15 @@ class GetPlantURLCall {
         response,
         r'''$.bestMatch''',
       ));
-  static List? commonNames(dynamic response) => getJsonField(
+  static List<String>? commonNames(dynamic response) => (getJsonField(
         response,
         r'''$.results[:].species.commonNames''',
         true,
-      ) as List?;
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   static List<String>? similarImage(dynamic response) => (getJsonField(
         response,
         r'''$.results[:].images[:].url.o''',
@@ -104,6 +111,15 @@ class GetPlantURLCall {
         r'''$.results[:].species''',
         true,
       ) as List?;
+  static List<String>? msimimg(dynamic response) => (getJsonField(
+        response,
+        r'''$.results[:].images[:].url.m''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class PermapeoplePlantByIdCall {
@@ -209,6 +225,152 @@ class PermapeoplePlantByIdCall {
       ));
 }
 
+class PlantDiseaseIdentificationnCall {
+  static Future<ApiCallResponse> call({
+    String? imageDisease = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "images": [
+    "{{${escapeStringForJson(imageDisease)}}}"
+  ],
+  "latitude": 49,
+  "longitude": 16.608,
+  "similar_images": true
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'PlantDiseaseIdentificationn',
+      apiUrl:
+          'https://plant.id/api/v3/health_assessment?language=en&full_disease_list=true&details=local_name,description,url,treatment,classification,common_names,cause',
+      callType: ApiCallType.POST,
+      headers: {
+        'Api-Key': 'g6wfU0kd9oJUXEDMRzsnvhy1H0iHOIWHkGF5ktDB094tiUqCOW',
+        'Content-Type': 'Application/json',
+        'Content-Length': '<calculated when request is sent>',
+        'Host': '<calculated when request is sent>',
+        'User-Agent': 'PostmanRuntime/7.42.0',
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PlantDiseaseIdentificationCall {
+  static Future<ApiCallResponse> call({
+    String? plant = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'PlantDiseaseIdentification',
+      apiUrl:
+          'https://perenual.com/api/pest-disease-list?key=sk-IrjG674e34191ac9a7858',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'Key': "sk-IrjG674e34191ac9a7858",
+        'Page': 1,
+        'ID': 0,
+        'q': plant,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<String>? commonNames(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].common_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? scientificName(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].scientific_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? describedisease(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].description''',
+        true,
+      ) as List?;
+  static List<String>? questiondisease(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].description[:].subtitle''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? detaildisease(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].description[:].description''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? diseasehost(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].host''',
+        true,
+      ) as List?;
+  static List<String>? thumbnailimage(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].images[:].thumbnail''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? diseasesecure(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].solution''',
+        true,
+      ) as List?;
+  static List<String>? longSolution(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].solution[:].subtitle''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? easySolution(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].solution[:].description''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
@@ -254,4 +416,15 @@ String _serializeJson(dynamic jsonVar, [bool isList = false]) {
     }
     return isList ? '[]' : '{}';
   }
+}
+
+String? escapeStringForJson(String? input) {
+  if (input == null) {
+    return null;
+  }
+  return input
+      .replaceAll('\\', '\\\\')
+      .replaceAll('"', '\\"')
+      .replaceAll('\n', '\\n')
+      .replaceAll('\t', '\\t');
 }

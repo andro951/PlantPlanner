@@ -132,7 +132,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color borderColor = const Color(0xFF000000);
   late Color textColor = const Color(0xFF000000);
   late Color hintColor = const Color(0xFF898989);
-  late Color primaryButtonColor = const Color(0xFF90EE90);
+  late Color primaryButtonColor = const Color(0xFFB1D7BE);
 }
 
 abstract class Typography {

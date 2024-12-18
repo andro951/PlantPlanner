@@ -4,6 +4,7 @@ admin.initializeApp();
 
 const kFcmTokensCollection = "fcm_tokens";
 const kPushNotificationsCollection = "ff_push_notifications";
+const kSchedulerIntervalMinutes = 1;
 const firestore = admin.firestore();
 
 const kPushNotificationRuntimeOpts = {
@@ -71,6 +72,38 @@ exports.sendPushNotificationsTrigger = functions
     } catch (e) {
       console.log(`Error: ${e}`);
       await snapshot.ref.update({ status: "failed", error: `${e}` });
+    }
+  });
+
+exports.sendScheduledPushNotifications = functions.pubsub
+  .schedule(`every ${kSchedulerIntervalMinutes} minutes synchronized`)
+  .onRun(async (_) => {
+    const minutesToMilliseconds = (minutes) => minutes * 60 * 1000;
+    function currentTimeDownToNearestMinute() {
+      // Add a second to the current time to avoid minute boundary issues.
+      const currentTime = new Date(new Date().getTime() + 1000);
+      // Remove seconds and milliseconds to get the time down to the minute.
+      currentTime.setSeconds(0, 0);
+      return currentTime;
+    }
+
+    // Determine the cutoff times for this round of push notifications.
+    const intervalMs = minutesToMilliseconds(kSchedulerIntervalMinutes);
+    const upperCutoffTime = currentTimeDownToNearestMinute();
+    const lowerCutoffTime = new Date(upperCutoffTime.getTime() - intervalMs);
+    // Send push notifications that we've scheduled.
+    const scheduledNotifications = await firestore
+      .collection(kPushNotificationsCollection)
+      .where("scheduled_time", ">", lowerCutoffTime)
+      .where("scheduled_time", "<=", upperCutoffTime)
+      .get();
+    for (var snapshot of scheduledNotifications.docs) {
+      try {
+        await sendPushNotifications(snapshot);
+      } catch (e) {
+        console.log(`Error: ${e}`);
+        await snapshot.ref.update({ status: "failed", error: `${e}` });
+      }
     }
   });
 
@@ -209,6 +242,7 @@ function getCharForIndex(charIdx) {
 exports.onUserDeleted = functions.auth.user().onDelete(async (user) => {
   let firestore = admin.firestore();
   let userRef = firestore.doc("users/" + user.uid);
+  await firestore.collection("users").doc(user.uid).delete();
 });
 const OneSignal = require("@onesignal/node-onesignal");
 

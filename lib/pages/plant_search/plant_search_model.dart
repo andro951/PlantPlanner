@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/sqlite/sqlite_manager.dart';
+import '/components/dropdown_menu_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'plant_search_widget.dart' show PlantSearchWidget;
@@ -31,19 +32,19 @@ class PlantSearchModel extends FlutterFlowModel<PlantSearchWidget> {
 
   String recognizedPlantScientificName = ' ';
 
+  bool loadingPlants = false;
+
   ///  State fields for stateful widgets in this page.
 
+  // Model for dropdown_menu component.
+  late DropdownMenuModel dropdownMenuModel;
   // State field(s) for SearchBar widget.
   FocusNode? searchBarFocusNode;
   TextEditingController? searchBarTextController;
   String? Function(BuildContext, String?)? searchBarTextControllerValidator;
-  // Stores action output result for [Backend Call - SQLite (PlantQuery)] action in SearchBar widget.
-  List<PlantQueryRow>? plantSearchResult;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
-  // Stores action output result for [Backend Call - SQLite (PlantQuery)] action in DropDown widget.
-  List<PlantQueryRow>? plantSearchResult2;
   // State field(s) for ImageURL widget.
   FocusNode? imageURLFocusNode;
   TextEditingController? imageURLTextController;
@@ -59,14 +60,40 @@ class PlantSearchModel extends FlutterFlowModel<PlantSearchWidget> {
   ApiCallResponse? recognizedPlantAPIResult2;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    dropdownMenuModel = createModel(context, () => DropdownMenuModel());
+  }
 
   @override
   void dispose() {
+    dropdownMenuModel.dispose();
     searchBarFocusNode?.dispose();
     searchBarTextController?.dispose();
 
     imageURLFocusNode?.dispose();
     imageURLTextController?.dispose();
+  }
+
+  /// Action blocks.
+  Future searchForPlants(BuildContext context) async {
+    List<PlantQueryRow>? plantSearchResult;
+
+    logFirebaseEvent('SearchForPlants_backend_call');
+    plantSearchResult = await SQLiteManager.instance.plantQuery(
+      searchString: searchBarTextController.text,
+      column: valueOrDefault<String>(
+        dropDownValue,
+        'Name',
+      ),
+    );
+    logFirebaseEvent('SearchForPlants_update_page_state');
+    searchedPlants = plantSearchResult.toList().cast<PlantQueryRow>();
+    loadingPlants = false;
+  }
+
+  Future resetPlants(BuildContext context) async {
+    logFirebaseEvent('ResetPlants_update_page_state');
+    searchedPlants = [];
+    loadingPlants = true;
   }
 }

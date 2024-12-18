@@ -1,5 +1,10 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/dropdown_menu_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/instant_timer.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'my_plants_widget.dart' show MyPlantsWidget;
 import 'package:flutter/material.dart';
 
@@ -24,20 +29,50 @@ class MyPlantsModel extends FlutterFlowModel<MyPlantsWidget> {
   void updateImagesAtIndex(int index, Function(String) updateFn) =>
       images[index] = updateFn(images[index]);
 
-  String testField = 'test';
+  int myPlantsRefreshCounter = 3;
 
-  String permapeopleIds = 'permapeopleIds';
+  bool loadingMyPlants = true;
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Firestore Query - Query a collection] action in MyPlants widget.
-  List<MyPlantsRecord>? myPlantsResult;
-  // Stores action output result for [Custom Action - getPlantImages] action in MyPlants widget.
-  List<String>? foundPlantImages;
+  InstantTimer? timer1Second;
+  // Model for dropdown_menu component.
+  late DropdownMenuModel dropdownMenuModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    dropdownMenuModel = createModel(context, () => DropdownMenuModel());
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    timer1Second?.cancel();
+    dropdownMenuModel.dispose();
+  }
+
+  /// Action blocks.
+  Future getMyPlants(BuildContext context) async {
+    List<MyPlantsRecord>? myPlantsResult;
+    List<String>? foundPlantImages;
+
+    logFirebaseEvent('getMyPlants_firestore_query');
+    myPlantsResult = await queryMyPlantsRecordOnce(
+      parent: currentUserReference,
+    );
+    logFirebaseEvent('getMyPlants_update_page_state');
+    images = functions
+        .makeListOfImage(
+            'https://cdn.permapeople.org/permapeople-permaculture-plant-database-blank.jpg',
+            myPlantsResult.length)
+        .toList()
+        .cast<String>();
+    logFirebaseEvent('getMyPlants_update_page_state');
+    myPlants = myPlantsResult.toList().cast<MyPlantsRecord>();
+    logFirebaseEvent('getMyPlants_custom_action');
+    foundPlantImages = await actions.getPlantImages(
+      myPlants.toList(),
+    );
+    logFirebaseEvent('getMyPlants_update_page_state');
+    images = foundPlantImages.toList().cast<String>();
+  }
 }
