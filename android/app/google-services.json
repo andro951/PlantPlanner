@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "83527110089",
+    "project_id": "plant-planner-ogpnap",
+    "storage_bucket": "plant-planner-ogpnap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83527110089:android:2a92d68c3c4d08022a6c18",
+        "android_client_info": {
+          "package_name": "com.csc305soft.plantplanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc7jkVOMq286Bz7In-5HFPgIDGfCHOzqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83527110089:android:554ed79ea8c326962a6c18",
+        "android_client_info": {
+          "package_name": "com.uricsc305.plantplanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc7jkVOMq286Bz7In-5HFPgIDGfCHOzqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
